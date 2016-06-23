@@ -1,0 +1,70 @@
+body {
+  background: #555;
+  font-family: avenir, 'avenir next', 'open sans', helvetica, arial, sans-serif;
+}
+
+.columns {
+  padding: 0 1em;
+}
+
+.full-width {
+  background: #eee;
+  margin-bottom: 2em;
+  padding-bottom: 2em;
+}
+
+h1 {
+  border-bottom: .0375em solid #a57;
+  color: #57a;
+  font-family: georgia, serif;
+  font-size: 3em;
+  font-style: italic;
+  font-weight: 600;
+  margin-bottom: .25em;
+}
+
+textarea {
+  min-height: 6em;
+  margin: .1em 0 1.5em;
+}
+
+.button {
+  background: #57a;
+  font-weight: 500;
+  letter-spacing: .1em;
+  padding: 1em .5em;
+  text-rendering: optimizeLegibility;
+}
+
+.button:hover {
+  background: #a57;
+}
+
+.paypal .button,
+.paypal p {
+  margin: 0;
+}
+.paypal .button {
+  background: #a57;
+  padding: 1em;
+}
+
+.paypal .button:hover {
+  background: #7a5;
+}
+
+.footer,
+.footer .columns {
+  background: unset;
+  color: #eee;
+  padding: 0 1em;
+}
+
+.footer .logo {
+  max-width: 100%;
+  width: 380px;
+}
+
+.footer * {
+  line-height: 2em;
+}
