@@ -1,51 +1,59 @@
 function capitalize(str) {
+  // Just make sure the first is caps but don't fuss
+  // otherwise so as not to disturb acronyms, etc.
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-function applyTitleCaseTo(str) {
-  var notCapitalized = ['a', 'an', 'and',
-    'at', 'but', 'by',
-    'for', 'in', 'nor',
-    'of', 'on', 'or',
-    'so', 'the', 'to',
-    'up', 'yet'
-  ];
+function initialize(str) {
+  // Force all but first char to lowercase. Draconian.
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
 
-  return str.replace(/(\w|['])+/g, function(txt) {
-    if ($.inArray(txt.toLowerCase(), notCapitalized) > 1) {
+function applyTitleCaseTo(str) {
+  // List of words not to be capitalized
+  var notCapitalized = ['a', 'an', 'and',
+                        'at', 'but', 'by',
+                        'for', 'in', 'nor',
+                        'of', 'on', 'or',
+                        'so', 'the', 'to',
+                        'up', 'yet'];
+
+  var result = str.replace(/(\w|['])+/g, function(txt) {
+    // Only capitalize words that aren't in the list
+    if ($.inArray(txt.toLowerCase(), notCapitalized) > -1) {
       return txt.toLowerCase();
     } else {
       return capitalize(txt);
     }
   });
-}
 
-// sentences
-// (\w|\s|[,;:'"])+(\b)([.!?]|$)
+  // Capitalize the first letter of the sentence
+  // just in case it happens to be on the list.
+  return capitalize(result);
+}
 
 function applySentenceCaseTo(str) {
-  return str.replace(/(\w|\s|[,'])+([.!?]\s|[.!?]|$)/g, function(txt) {
-      return capitalize(txt);
-  });
-  // return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  // Split on punctuation but retain it
+  var matches = str.match(/([^?.!]+[?.!])(?:\s|$)/gm);
+  
+  // Capitalize each sentence
+  for (var i = 0; i < matches.length; i++) {
+    matches[i] = initialize(matches[i]);
+  }
+  return matches.join('');
 }
-/*
-function applyCamelCaseTo(str) {
-  return str[0].toUpperCase() + str.slice(1).toLowerCase();
-}
-*/
+
 function applySpinalCaseTo(str) {
   return str.replace(/_/g, ' ')
     .replace(/\'|"+/g, '-')
     .replace(/\W+/g, '-')
     .replace(/^\W+|\W+$/, '')
-//    .replace(/([a-z\d])([A-Z])/g, '$1-$2')
     .toLowerCase();
 }
 
 function applyCamelCaseTo(str) {
   var tempStr = str.replace(/(\w|['])+/g, function(txt) {
-      return capitalize(txt);
+    return capitalize(txt);
   }).replace(/\W/g, '');
   return tempStr.charAt(0).toLowerCase() + tempStr.slice(1);
 }
@@ -76,7 +84,7 @@ $('#convertible').keyup(function(e) {
   $('#spinal-case').on('click', function() {
     $('#convertible').val(applySpinalCaseTo(textToBeConverted));
   });
-  
+
   $('button').on('click', function() {
     $('button').removeAttr('disabled');
     $(this).attr('disabled');
