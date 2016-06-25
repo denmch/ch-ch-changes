@@ -49,7 +49,7 @@ function applySentenceCaseTo(str) {
 
 function applySpinalCaseTo(str) {
   return str.replace(/_/g, ' ')
-    .replace(/\'|"+/g, '-')
+    .replace(/\'|"+/g, '')
     .replace(/\W+/g, '-')
     .replace(/^\W+|\W+$/, '')
     .toLowerCase();
