@@ -34,12 +34,16 @@ function applyTitleCaseTo(str) {
 
 function applySentenceCaseTo(str) {
   // Split on punctuation but retain it
-  var matches = str.match(/([^?.!]+[?.!])(?:\s|$)/gm);
+  var matches = str.match(/([^?.!]+([?.!]|$))(?:\s|$)/g);
+  if (matches === null) {
+    return matches = str;
+  }
   
   // Capitalize each sentence
   for (var i = 0; i < matches.length; i++) {
     matches[i] = initialize(matches[i]);
   }
+  
   return matches.join('');
 }
 
