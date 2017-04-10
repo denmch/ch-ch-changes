@@ -18,7 +18,8 @@ function applyTitleCaseTo(str) {
                         'so', 'the', 'to',
                         'up', 'yet'];
 
-  var result = str.replace(/(\w|['])+/g, function(txt) {
+  // Don't capitalize s after apostrophe
+  var result = str.replace(/(\w|['])+|(’s)+/g, function(txt) {
     // Only capitalize words that aren't in the list
     if ($.inArray(txt.toLowerCase(), notCapitalized) > -1) {
       return txt.toLowerCase();
